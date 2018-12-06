@@ -112,24 +112,11 @@ void dns_parser(packetinfo *pi)
         when running against millions of packet capture files, port reuse in the
         span of a few minutes is not uncommon.  This results in all subsequent
         responses on the reused port being thrown out as if they came from a client. */
-        if (pi->sc == SC_UNKNOWN || pi->cxt->s_total_pkts == 0) {
-            dlog("[D] DNS Answer without a Question?: Query TID = %d and Answer TID = %d\n",
-                 pi->cxt->plid, ldns_pkt_id(dns_pkt));
-            ldns_pkt_free(dns_pkt);
-            update_dns_stats(pi, ERROR);
-            return;
-        }
+
         dlog("[D] DNS Answer\n");
         /* Check the DNS TID */
         if ((pi->cxt->plid == ldns_pkt_id(dns_pkt))) {
             dlog("[D] DNS Query TID match Answer TID: %d\n", pi->cxt->plid);
-        }
-        else {
-            dlog("[D] DNS Query TID did not match Answer TID: %d != %d - Skipping!\n",
-                 pi->cxt->plid, ldns_pkt_id(dns_pkt));
-            ldns_pkt_free(dns_pkt);
-            update_dns_stats(pi,ERROR);
-            return;
         }
 
         /* From isc.org wording:
