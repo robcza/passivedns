@@ -205,7 +205,7 @@ void prepare_eth(packetinfo *pi)
 
 void check_vlan(packetinfo *pi)
 {
-    if (pi->eth_type == ETHERNET_TYPE_8021Q) {
+    if (1) {
         vlog(0x3, "[*] ETHERNET TYPE 8021Q\n");
         config.p_s.vlan_recv++;
         pi->vlan = pi->eth_hdr->eth_8_vid;
