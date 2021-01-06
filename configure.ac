@@ -290,4 +290,3 @@ AC_FUNC_STRNLEN
 AC_CHECK_FUNCS([alarm dup2 endgrent endpwent ftruncate getcwd memset strdup strerror strtol strtoul])
 
 AC_OUTPUT(Makefile src/Makefile)
-
