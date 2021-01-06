@@ -951,7 +951,10 @@ void print_passet(pdns_record *l, pdns_asset *p, ldns_rr *rr,
 
         /* Print client IP */
         if (config.fieldsf & FIELD_CLIENT) {
-            json_client = json_string(ip_addr_c);
+            unsigned char shahash[65] = {0};
+            sha256_string(l, ip_addr_c, shahash);
+            shahash[12] = 0;
+            json_client = json_string(shahash);
             json_object_set(jdata, JSON_CLIENT, json_client);
             json_decref(json_client);
         }
